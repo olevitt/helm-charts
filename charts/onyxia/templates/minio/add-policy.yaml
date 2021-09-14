@@ -1,0 +1,28 @@
+{{- if .Values.minio.enabled -}}
+{{- if .Values.minio.addPolicy -}}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: add-policy
+spec:
+  template:
+    spec:
+      containers:
+      - name: add-policy
+        image: minio/mc
+        command: ["/bin/sh","-c"]
+        args: [mc alias set s3 http://onyxia-chart-minio:9000 $ACCESS_KEY $SECRET_KEY ; mc admin info s3; "]
+        env:
+          - name: ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: onyxia-chart-minio
+                key: access-key
+          - name: SECRET_KEY
+            valueFrom:
+              secretKeyRef:
+                name: onyxia-chart-minio
+                key: secret-key
+      restartPolicy: OnFailure
+{{- end }}
+{{- end }}

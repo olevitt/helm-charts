@@ -1,0 +1,12 @@
+dependencies:
+- name: minio
+  repository: https://charts.bitnami.com/bitnami
+  version: 8.0.0
+- name: keycloak
+  repository: https://codecentric.github.io/helm-charts
+  version: 15.0.2
+- name: vault
+  repository: https://helm.releases.hashicorp.com
+  version: 0.15.0
+digest: sha256:52a034fde9985209eba31721c892dd51610c14c86426b5b5abd5ced10a4160db
+generated: "2021-09-14T16:07:20.170324602+02:00"

@@ -1,58 +1,11 @@
-vault:
-  enabled: true
-
-keycloak:
-  enabled: true
-  extraEnv: |
-    - name: KEYCLOAK_USER
-      value: admin  
-    - name: KEYCLOAK_PASSWORD
-      value: changeme
-    - name: PROXY_ADDRESS_FORWARDING
-      value: "true"
-  ingress:
-    # If `true`, an Ingress is created
-    enabled: true
-    # The Service port targeted by the Ingress
-    servicePort: http
-    # Ingress annotations
-    annotations:
-      ## Resolve HTTP 502 error using ingress-nginx:
-      ## See https://www.ibm.com/support/pages/502-error-ingress-keycloak-response
-      nginx.ingress.kubernetes.io/proxy-buffer-size: 128k
-
-    # Additional Ingress labels
-    labels: {}
-    # List of rules for the Ingress
-    rules:
-      - # Ingress host
-        host: keyclonyxia.lab.sspcloud.fr
-        # Paths for the host
-        paths:
-          - path: /
-            pathType: Prefix
-    # TLS configuration
-    tls:
-      - hosts:
-          - keyclonyxia.lab.sspcloud.fr
-        secretName: ""
-
 minio:
-  enabled: true # Switch to false if you already have an external S3 storage
-  mode: standalone
-  #statefulset:
-  #replicaCount: 4
-  persistence:
+  ingress:
     enabled: true
-    size: 1Gi
-  accessKey:
-    password: "minio"
-    forcePassword: true
-  secretKey:
-    password: "minio123"
-    forcePassword: true
-
-  addPolicy: false
+    extraTls:
+      - hosts:
+          - minionyxia.lab.sspcloud.fr
+        secretName:
+    hostname: minionyxia.lab.sspcloud.fr
 
 # Default values for onyxia-bis.
 # This is a YAML-formatted file.
